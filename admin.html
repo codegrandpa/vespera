@@ -150,7 +150,7 @@
   var activeKey = "posts";
   var editingId = null;
   var pendingAudio = {};
-  var MAX_AUDIO_REPO_BYTES = 5 * 1024 * 1024;
+  var MAX_AUDIO_REPO_BYTES = 20 * 1024 * 1024;
 
   /* ================= 实体 Schema ================= */
   var SCHEMAS = {
@@ -480,12 +480,16 @@
         row.innerHTML =
           '<div class="field">'+
             '<label>' + f.label + (f.required ? " *" : "") + '</label>'+
-            '<input type="file" id="f_audio_file" accept="audio/*,.mp3,.flac,.wav,.m4a,.ogg,.aac">'+
-            '<input type="text" id="f_' + f.name + '" placeholder="https://... 或 audio/曲目.mp3" value="' + escAttr(val) + '" style="margin-top:10px">'+
+            '<div class="audio-field">'+
+              '<input type="file" id="f_audio_file" accept="audio/*,.mp3,.flac,.wav,.m4a,.ogg,.aac" style="display:none">'+
+              '<button type="button" class="btn btn-gold btn-sm" id="btnPickAudio">选择音频文件</button>'+
+              '<span class="audio-name" id="f_audio_name"></span>'+
+            '</div>'+
+            '<input type="text" id="f_' + f.name + '" placeholder="https://... 或 audio/曲目.mp3" value="' + escAttr(val) + '" style="margin-top:12px">'+
             '<audio id="f_audio_preview" controls preload="metadata" style="display:none;width:100%;margin-top:12px"></audio>'+
             '<p class="hint" style="margin-top:10px">'+
-              '选择本地文件：保存时自动存入本机浏览器（IndexedDB）立即生效，并尝试同步到仓库 <b>audio/</b> 目录（≤ 5MB），同步成功后全站可播。'+
-              '粘贴外部链接：保存后全站可见。'+
+              '点击「选择音频文件」上传本地文件：保存时自动存入本机浏览器（IndexedDB）立即生效，并尝试同步到仓库 <b>audio/</b> 目录（≤ 20MB），同步成功后全站可播；超过 20MB 仅本机可播。'+
+              '也可直接粘贴外部链接，保存后全站可见。'+
               (prevSrc ? '<br>当前链接：<b style="color:var(--gold-2)">' + escAttr(prevSrc) + '</b>' : '')+
             '</p>'+
           '</div>';
@@ -517,13 +521,17 @@
   }
   function bindAudioField(item, prevSrc){
     var fileInput = document.getElementById("f_audio_file");
+    var pickBtn = document.getElementById("btnPickAudio");
+    var nameSpan = document.getElementById("f_audio_name");
     var srcInput = document.getElementById("f_src");
     var preview = document.getElementById("f_audio_preview");
     pendingAudio[item.id] = null;
+    pickBtn.addEventListener("click", function(){ fileInput.click(); });
     fileInput.addEventListener("change", function(){
       var f = fileInput.files && fileInput.files[0];
-      if(!f){ pendingAudio[item.id] = null; preview.style.display = "none"; return; }
+      if(!f){ pendingAudio[item.id] = null; preview.style.display = "none"; nameSpan.textContent = ""; return; }
       pendingAudio[item.id] = f;
+      nameSpan.textContent = f.name + " · " + (f.size/1024/1024).toFixed(1) + "MB";
       try{ URL.revokeObjectURL(preview.src); }catch(e){}
       preview.src = URL.createObjectURL(f);
       preview.style.display = "block";
@@ -586,7 +594,7 @@
       : "audio/" + item.id + "." + (String(file.name).split(".").pop() || "mp3").toLowerCase();
     return audioStore.save(item.id, file).then(function(){
       if(file.size > MAX_AUDIO_REPO_BYTES){
-        return { local: true, reason: "文件 " + (file.size/1024/1024).toFixed(1) + "MB 超过 5MB，GitHub API 无法上传，音频仅保存在本机浏览器" };
+        return { local: true, reason: "文件 " + (file.size/1024/1024).toFixed(1) + "MB 超过 20MB，GitHub API 无法上传，音频仅保存在本机浏览器（建议改用外部直链或方式 A 提交）" };
       }
       return uploadAudioToRepo(path, file, "上传音频：" + (item.title || item.id))
         .then(function(){ return { repo: path }; })

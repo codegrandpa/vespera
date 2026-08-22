@@ -645,7 +645,9 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:70px 5vw 
 .field input:focus,.field textarea:focus{border-color:var(--gold)}
 .field textarea{resize:vertical;min-height:240px;line-height:1.8;font-family:var(--font-m);font-size:13px}
 .admin-actions{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
-.btn-sm{padding:12px 22px;font-size:11px}
+  .btn-sm{padding:12px 22px;font-size:11px}
+  .audio-field{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  .audio-name{font-family:var(--font-m);font-size:11px;letter-spacing:.1em;color:var(--gold-2)}
 .btn-danger{background:transparent;color:var(--ember);border:1px solid rgba(180,87,47,.4)}
 .btn-danger:hover{border-color:var(--ember);color:var(--ember)}
 .admin-list{display:flex;flex-direction:column}

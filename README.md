@@ -62,11 +62,11 @@ python -m http.server 8300 --bind 127.0.0.1
 1. 打开 `admin.html`，在「仓库连接」填入 Owner / Repo / Branch / Token（GitHub Personal Access Token，勾选 `repo` 权限；Token 仅存于浏览器 localStorage，不会上传到任何服务器）。
 2. 切到「曲目」标签页，新建或编辑一条曲目。
 3. 「音频文件」字段有两种填法：
-   - **上传本地文件**：保存时音频会存入**本机浏览器**（IndexedDB，立即生效、刷新不丢），并尝试同步到仓库 `audio/` 目录（≤ 5MB）。同步成功则全站可播；同步失败（过大或网络问题）则仅本机能播，控制台会给出提示。
+   - **上传本地文件**：保存时音频会存入**本机浏览器**（IndexedDB，立即生效、刷新不丢），并尝试同步到仓库 `audio/` 目录（≤ 20MB）。同步成功则全站可播；同步失败（过大或网络问题）则仅本机能播，控制台会给出提示。
    - **粘贴外部链接**：直接填 `https://...` 直链，保存后全站可见。
 4. 点「保存并提交」，GitHub Pages 约 1 分钟后更新。
 
-> 体积建议：GitHub Contents API 对 base64 上传的体积敏感，**超过 5MB 的音频请使用外部对象存储（R2 / OSS / S3 / Supabase Storage 等）直链**，或走方式 A 手动放到仓库。超大文件建议转码为 128–192kbps 的 MP3 再传。
+> 体积建议：GitHub Contents API 对 base64 上传的体积敏感，**超过 20MB 的音频请使用外部对象存储（R2 / OSS / S3 / Supabase Storage 等）直链**，或走方式 A 手动放到仓库。超大文件建议转码为 128–192kbps 的 MP3 再传。
 
 ## 发布到 GitHub Pages
 
