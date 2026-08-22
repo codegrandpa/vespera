@@ -1,6 +1,6 @@
 ﻿/* ============================================================
-   VESPERA 鏅氳皟 鈥?Deep-Evening Vinyl Editorial
-   鍏变韩鏍峰紡锛氶煶涔愭ā鍧?+ 鍗氬妯″潡
+   VESPERA - Deep-Evening Vinyl Editorial
+   Shared styles: Music + Blog modules
    ============================================================ */
 :root{
   --bg:#0d0a08;
@@ -276,7 +276,7 @@ html[data-theme="light"] .theme-toggle .icon-moon{display:block}
   font-family:var(--font-d);font-size:20px;letter-spacing:.08em;color:var(--ink-2);
   white-space:nowrap;padding:0 26px;display:flex;align-items:center;gap:26px;
 }
-.marquee span::after{content:"鉁?;font-family:var(--font-m);font-size:11px;color:var(--gold)}
+.marquee span::after{content:"✦";font-family:var(--font-m);font-size:11px;color:var(--gold)}
 .marquee span em{font-style:normal;font-family:var(--font-m);font-size:10px;letter-spacing:.3em;color:var(--muted);margin-left:6px}
 @keyframes marq{to{transform:translateX(-50%)}}
 
@@ -545,7 +545,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:70px 5vw 
   .p-right{display:none}
 }
 /* ============================================================
-   BLOG & ADMIN 鈥?鍗氬妯″潡
+   BLOG & ADMIN - Blog module
    ============================================================ */
 .page-hero{
   min-height:56vh;display:flex;align-items:flex-end;
