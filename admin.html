@@ -261,10 +261,14 @@
     return schema.key === "posts" ? JSON.stringify(postsDb, null, 2) : JSON.stringify(musicDb, null, 2);
   }
   function loadAll(){
+    var v = "?v=" + Date.now();
     return Promise.all([
-      fetch("data/posts.json").then(function(r){ return r.json(); }).then(function(d){ postsDb = d; }),
-      fetch("data/music.json").then(function(r){ return r.json(); }).then(function(d){ musicDb = d; })
-    ]).then(function(){ renderTabs(); switchTab(activeKey); });
+      fetch("data/posts.json" + v).then(function(r){ return r.json(); }).then(function(d){ postsDb = d; }),
+      fetch("data/music.json" + v).then(function(r){ return r.json(); }).then(function(d){ musicDb = d; })
+    ]).then(function(){ renderTabs(); switchTab(activeKey); })
+    .catch(function(e){
+      status("cfgStatus", "数据加载失败：" + e.message + " —— 请强制刷新（Ctrl+F5）后重试。", "err");
+    });
   }
 
   /* ================= 设置 ================= */

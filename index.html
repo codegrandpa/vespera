@@ -338,7 +338,7 @@
   function byId(list, id){ return (list||[]).filter(function(x){ return x.id === id; })[0]; }
 
   function load(){
-    return fetch("data/music.json")
+    return fetch("data/music.json?v=" + Date.now())
       .then(function(r){ return r.json(); })
       .then(function(d){
         music = d;
@@ -354,7 +354,11 @@
           setPlaying(false);
         }
       })
-      .catch(function(){ console.error("data/music.json 加载失败"); });
+      .catch(function(e){
+        console.error("data/music.json 加载失败", e);
+        var el = $("#albums");
+        if(el) el.innerHTML = '<p class="sec-sub">音乐数据加载失败，请刷新重试。</p>';
+      });
   }
 
   function renderHero(){

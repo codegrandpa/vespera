@@ -111,7 +111,7 @@
   "use strict";
   var $ = Vespera.$, $$ = Vespera.$$;
 
-  fetch("data/posts.json")
+  fetch("data/posts.json?v=" + Date.now())
     .then(function(r){ return r.json(); })
     .then(function(db){
       var posts = (db.posts || []).slice().sort(function(a,b){ return b.date.localeCompare(a.date); });
