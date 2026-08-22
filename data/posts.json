@@ -1,0 +1,83 @@
+{
+  "posts": [
+    {
+      "id": "2026-08-22-hello",
+      "title": "你好，晚调",
+      "date": "2026-08-22",
+      "tags": ["开站", "随笔"],
+      "excerpt": "为什么叫「晚调」？因为最好的音乐和最好的文字，都发生在夜晚。",
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ambient%20music%20album%20cover%2C%20misty%20layered%20mountains%20at%20dusk%2C%20deep%20indigo%20and%20warm%20gold%20palette%2C%20minimalist%20zen%20composition%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=landscape_16_9",
+      "content": "## 为什么是「晚调」
+
+「晚调」是傍晚的调子，也是深夜的调性。VESPERA 这个词来自拉丁语，意为「晚祷」——一天结束前，把心放下来的那个时刻。
+
+这个站想做两件事：
+
+- **音乐**：收藏那些值得反复聆听的作品，手工策展，无损音质。
+- **文字**：记录聆听时的感受，以及深夜里的胡思乱想。
+
+> 声音是时间最好的容器。文字也是。
+
+## 关于发布方式
+
+本站是纯静态站点，文章数据存放在 `data/posts.json`：
+
+1. **方式 A**：本地用 VS Code / Typora 编辑后 `git push`，GitHub Pages 自动发布。
+2. **方式 B**：在[写作台](admin.html)在线编辑，通过 GitHub API 直接提交回仓库。
+
+两种方式殊途同归——最终都是把文字交给时间。
+
+## 接下来
+
+会陆续写一些乐评、阅读笔记和深夜手记。欢迎常来坐坐，把耳朵借给我们。",
+      "read": "约 3 分钟"
+    },
+    {
+      "id": "2026-08-15-blue-hour",
+      "title": "《蓝色时刻》：把凌晨四点的爵士装进唱片",
+      "date": "2026-08-15",
+      "tags": ["乐评", "爵士"],
+      "excerpt": "凌晨四点的爵士乐，是城市最诚实的声音。",
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smoky%20jazz%20club%20album%20cover%2C%20silhouette%20of%20saxophone%20player%20in%20warm%20amber%20spotlight%2C%20art%20deco%20geometric%20light%20rays%2C%20vintage%20noir%20atmosphere%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=landscape_16_9",
+      "content": "## 蓝色时刻
+
+陈默三重奏的新专辑《蓝色时刻》在凌晨四点录制完成。制作人没有清场，录音棚里还留着烟味和咖啡凉透的气息。
+
+第一首《深夜爵士》只有钢琴和低音提琴，萨克斯在第三分钟才进来——像一个人终于决定开口说话。
+
+- 曲目一《深夜爵士》：4:32，全碟的钥匙
+- 曲目三《雾中来信》：把即兴让给沉默
+- 曲目七《凌晨两点》：后摇式的留白
+
+> 爵士乐最动人的地方，是它允许错误发生，并且把错误变成旋律。
+
+## 值得反复听
+
+这张专辑不适合当背景音乐。它需要你关掉灯，把音量调到刚好能听见呼吸的程度。凌晨四点录下的声音，最好也在凌晨四点听。",
+      "read": "约 4 分钟"
+    },
+    {
+      "id": "2026-08-08-reading-notes",
+      "title": "深夜阅读笔记：声音与记忆",
+      "date": "2026-08-08",
+      "tags": ["阅读", "手记"],
+      "excerpt": "我们记住一首歌，往往不是记住旋律，而是记住它响起时的那段人生。",
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classical%20music%20album%20cover%2C%20marble%20sculpture%20head%20in%20dramatic%20chiaroscuro%20lighting%2C%20deep%20charcoal%20and%20cream%20palette%2C%20museum%20aesthetic%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=landscape_16_9",
+      "content": "## 声音是记忆的锚
+
+最近在读一本关于听觉记忆的书。里面有个观点很有意思：**气味和声音是最难被主动遗忘的感官记忆**，因为它们绕过了大脑的理性区域，直接写入情绪。
+
+想想确实如此。我至今记得某个夏天的傍晚，收音机里放着一首不知名的波萨诺瓦，风扇把窗帘吹得鼓起来。那首歌叫什么已经不重要了——它已经和那个傍晚长在了一起。
+
+## 一些摘录
+
+- 「我们不是记住旋律，而是记住旋律响起时，我们是谁。」
+- 「深夜听歌的人，都在和过去的自己对话。」
+
+## 写在最后
+
+所以这个博客会一直存在。不是为了被多少人读到，而是为了给那些「响起时的时刻」留一个位置。",
+      "read": "约 3 分钟"
+    }
+  ]
+}

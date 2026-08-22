@@ -1,0 +1,99 @@
+{
+  "featured": { "albumId": "blue-hour" },
+  "albums": [
+    {
+      "id": "blue-hour",
+      "title": "蓝色时刻",
+      "en": "Blue Hour",
+      "artist": "陈默三重奏",
+      "genre": "爵士",
+      "year": "2025",
+      "price": 32,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smoky%20jazz%20club%20album%20cover%2C%20silhouette%20of%20saxophone%20player%20in%20warm%20amber%20spotlight%2C%20art%20deco%20geometric%20light%20rays%2C%20vintage%20noir%20atmosphere%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t1"]
+    },
+    {
+      "id": "breath-of-marble",
+      "title": "大理石的呼吸",
+      "en": "Breath of Marble",
+      "artist": "苏菲·洛",
+      "genre": "古典",
+      "year": "2024",
+      "price": 28,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classical%20music%20album%20cover%2C%20marble%20sculpture%20head%20in%20dramatic%20chiaroscuro%20lighting%2C%20deep%20charcoal%20and%20cream%20palette%2C%20museum%20aesthetic%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t4"]
+    },
+    {
+      "id": "mist-and-ridge",
+      "title": "山雾",
+      "en": "Mist & Ridge",
+      "artist": "山与云",
+      "genre": "氛围",
+      "year": "2025",
+      "price": 26,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ambient%20music%20album%20cover%2C%20misty%20layered%20mountains%20at%20dusk%2C%20deep%20indigo%20and%20warm%20gold%20palette%2C%20minimalist%20zen%20composition%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t3", "t7"]
+    },
+    {
+      "id": "velvet-and-gold",
+      "title": "天鹅绒与金",
+      "en": "Velvet & Gold",
+      "artist": "阿黛拉",
+      "genre": "灵魂",
+      "year": "2024",
+      "price": 30,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neo%20soul%20album%20cover%2C%20textured%20gold%20leaf%20and%20deep%20oxblood%20red%20velvet%20folds%2C%20moody%20cinematic%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t2", "t8"]
+    },
+    {
+      "id": "liquid-chrome",
+      "title": "液态金属",
+      "en": "Liquid Chrome",
+      "artist": "KV-9",
+      "genre": "电子",
+      "year": "2025",
+      "price": 34,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=dark%20electronic%20music%20album%20cover%2C%20liquid%20chrome%20metal%20sculpture%2C%20deep%20black%20background%20with%20warm%20rim%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t5"]
+    },
+    {
+      "id": "dusk-shore",
+      "title": "黄昏海岸",
+      "en": "Dusk Shore",
+      "artist": "蓝调俱乐部",
+      "genre": "波萨",
+      "year": "2025",
+      "price": 29,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bossa%20nova%20album%20cover%2C%20tropical%20dusk%20sky%20in%20peach%20and%20teal%2C%20palm%20silhouettes%2C%20warm%20nostalgic%20summer%20mood%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": ["t6"]
+    }
+  ],
+  "tracks": [
+    { "id": "t1", "title": "深夜爵士", "artist": "陈默三重奏", "genre": "Jazz", "mood": "深夜 · 微醺", "dur": "4:32", "albumId": "blue-hour", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smoky%20jazz%20club%20album%20cover%2C%20silhouette%20of%20saxophone%20player%20in%20warm%20amber%20spotlight%2C%20art%20deco%20geometric%20light%20rays%2C%20vintage%20noir%20atmosphere%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t2", "title": "琥珀", "artist": "林晚", "genre": "Soul", "mood": "暮色 · 心动", "dur": "3:18", "albumId": "velvet-and-gold", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neo%20soul%20album%20cover%2C%20textured%20gold%20leaf%20and%20deep%20oxblood%20red%20velvet%20folds%2C%20moody%20cinematic%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t3", "title": "雾中来信", "artist": "山与云", "genre": "Ambient", "mood": "安静 · 独处", "dur": "5:07", "albumId": "mist-and-ridge", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ambient%20music%20album%20cover%2C%20misty%20layered%20mountains%20at%20dusk%2C%20deep%20indigo%20and%20warm%20gold%20palette%2C%20minimalist%20zen%20composition%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t4", "title": "大理石", "artist": "苏菲·洛", "genre": "Classical", "mood": "专注 · 沉思", "dur": "6:21", "albumId": "breath-of-marble", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classical%20music%20album%20cover%2C%20marble%20sculpture%20head%20in%20dramatic%20chiaroscuro%20lighting%2C%20deep%20charcoal%20and%20cream%20palette%2C%20museum%20aesthetic%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t5", "title": "霓虹公路", "artist": "KV-9", "genre": "Electronic", "mood": "驾驶 · 公路", "dur": "3:45", "albumId": "liquid-chrome", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=dark%20electronic%20music%20album%20cover%2C%20liquid%20chrome%20metal%20sculpture%2C%20deep%20black%20background%20with%20warm%20rim%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t6", "title": "黄昏咖啡", "artist": "蓝调俱乐部", "genre": "Bossa", "mood": "午后 · 慵懒", "dur": "4:02", "albumId": "dusk-shore", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bossa%20nova%20album%20cover%2C%20tropical%20dusk%20sky%20in%20peach%20and%20teal%2C%20palm%20silhouettes%2C%20warm%20nostalgic%20summer%20mood%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t7", "title": "凌晨两点", "artist": "北岛", "genre": "Post-Rock", "mood": "失眠 · 辽阔", "dur": "7:14", "albumId": "mist-and-ridge", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ambient%20music%20album%20cover%2C%20misty%20layered%20mountains%20at%20dusk%2C%20deep%20indigo%20and%20warm%20gold%20palette%2C%20minimalist%20zen%20composition%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" },
+    { "id": "t8", "title": "金箔", "artist": "阿黛拉", "genre": "Soul", "mood": "夜晚 · 炽热", "dur": "3:56", "albumId": "velvet-and-gold", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neo%20soul%20album%20cover%2C%20textured%20gold%20leaf%20and%20deep%20oxblood%20red%20velvet%20folds%2C%20moody%20cinematic%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" }
+  ],
+  "playlists": [
+    { "id": "p1", "title": "午夜驾驶", "en": "Midnight Drive", "count": "32 首", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neon%20city%20street%20at%20midnight%20reflected%20on%20wet%20asphalt%2C%20cinematic%20teal%20and%20amber%20tones%2C%20moody%20midnight%20drive%20playlist%20cover%2C%20no%20text&image_size=square_hd", "trackIds": ["t5", "t1", "t7"] },
+    { "id": "p2", "title": "雨夜书斋", "en": "Rainy Study", "count": "28 首", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=rain%20drops%20on%20a%20window%20at%20night%2C%20warm%20desk%20lamp%20glow%20behind%20glass%2C%20cozy%20rainy%20study%20playlist%20cover%2C%20cinematic%2C%20no%20text&image_size=square_hd", "trackIds": ["t3", "t4", "t8"] },
+    { "id": "p3", "title": "黄金时刻", "en": "Golden Hour", "count": "26 首", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=golden%20hour%20sunlight%20through%20venetian%20blinds%2C%20warm%20retro%20interior%2C%20nostalgic%20golden%20hour%20playlist%20cover%2C%20no%20text&image_size=square_hd", "trackIds": ["t6", "t2", "t1"] },
+    { "id": "p4", "title": "深海专注", "en": "Deep Focus", "count": "40 首", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=deep%20ocean%20dark%20blue%20gradient%20abstraction%2C%20calm%20meditative%20deep%20focus%20playlist%20cover%2C%20minimal%2C%20no%20text&image_size=square_hd", "trackIds": ["t4", "t3", "t7"] }
+  ],
+  "genres": [
+    { "id": "g1", "name": "爵士", "en": "Jazz", "desc": "深夜酒馆 · 即兴的暖意", "count": "286 张", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smoky%20jazz%20club%20album%20cover%2C%20silhouette%20of%20saxophone%20player%20in%20warm%20amber%20spotlight%2C%20art%20deco%20geometric%20light%20rays%2C%20vintage%20noir%20atmosphere%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "g2", "name": "古典", "en": "Classical", "desc": "大理石厅堂 · 时间的重量", "count": "412 张", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classical%20music%20album%20cover%2C%20marble%20sculpture%20head%20in%20dramatic%20chiaroscuro%20lighting%2C%20deep%20charcoal%20and%20cream%20palette%2C%20museum%20aesthetic%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "g3", "name": "氛围", "en": "Ambient", "desc": "山雾与海 · 空间感聆听", "count": "198 张", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ambient%20music%20album%20cover%2C%20misty%20layered%20mountains%20at%20dusk%2C%20deep%20indigo%20and%20warm%20gold%20palette%2C%20minimalist%20zen%20composition%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "g4", "name": "灵魂", "en": "Soul", "desc": "天鹅绒与金 · 炽热的心", "count": "154 张", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neo%20soul%20album%20cover%2C%20textured%20gold%20leaf%20and%20deep%20oxblood%20red%20velvet%20folds%2C%20moody%20cinematic%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=portrait_4_3" }
+  ],
+  "artists": [
+    { "id": "a1", "name": "陈默", "en": "Chen Mo", "role": "爵士钢琴家", "subs": "1,024 位订阅", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silhouette%20of%20a%20jazz%20pianist%20at%20a%20grand%20piano%2C%20dramatic%20single%20spotlight%2C%20dark%20concert%20hall%2C%20warm%20amber%20glow%2C%20cinematic%20photography%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "a2", "name": "林晚", "en": "Lin Wan", "role": "灵魂乐主唱", "subs": "2,315 位订阅", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silhouette%20of%20a%20soul%20singer%20at%20vintage%20microphone%2C%20warm%20amber%20backlight%20and%20smoke%2C%20film%20photography%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "a3", "name": "山与云", "en": "Shan & Yun", "role": "氛围双人组", "subs": "898 位订阅", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silhouette%20of%20a%20guitarist%20on%20stage%20in%20amber%20neon%20light%2C%20moody%20concert%20photography%2C%20no%20text&image_size=portrait_4_3" },
+    { "id": "a4", "name": "苏菲·洛", "en": "Sophie Luo", "role": "古典小提琴", "subs": "1,560 位订阅", "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silhouette%20of%20a%20violinist%20in%20a%20classical%20hall%2C%20warm%20gold%20backlight%2C%20dramatic%20atmosphere%2C%20no%20text&image_size=portrait_4_3" }
+  ]
+}

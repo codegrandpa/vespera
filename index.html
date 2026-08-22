@@ -1,0 +1,488 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VESPERA 晚调 — 精品数字唱片行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.loli.net/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vespera.css">
+</head>
+<body>
+<script>
+  /* 首屏前应用主题，避免闪烁 */
+  try{
+    var _t = localStorage.getItem("vespera-theme") ||
+             (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", _t);
+  }catch(e){}
+</script>
+<div class="grain"></div>
+<div class="cursor-glow" id="glow"></div>
+
+<header id="site-header">
+  <a class="logo" href="#">
+    <span class="mark">VESPERA</span>
+    <span class="sub">晚调 · Record Store</span>
+  </a>
+  <nav>
+    <a href="#featured">首页</a>
+    <a href="#tracks">正在流行</a>
+    <a href="#genres">流派</a>
+    <a href="#playlists">歌单</a>
+    <a href="#artists">艺术家</a>
+    <a href="blog.html">博客</a>
+  </nav>
+  <div class="hd-actions">
+    <button class="icon-btn search" aria-label="搜索">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+    </button>
+    <button class="icon-btn theme-toggle" id="themeToggle" aria-label="切换主题">
+      <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+      <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg>
+    </button>
+    <div class="avatar" title="我的收藏"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=silhouette%20of%20a%20soul%20singer%20at%20vintage%20microphone%2C%20warm%20amber%20backlight%20and%20smoke%2C%20film%20photography%2C%20no%20text&image_size=square" alt="avatar"></div>
+    <button class="icon-btn burger" aria-label="菜单">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16M4 16h10"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">EST. MMXXV &nbsp;·&nbsp; 精品数字唱片行</p>
+        <h1 class="hero-title">把夜晚，<br>交给<span class="it">声音</span>。</h1>
+        <p class="hero-sub">VESPERA 收藏那些值得反复聆听的作品 —— <b>手工策展</b>、<b>无损音质</b>，与深夜里恰到好处的一束光。</p>
+        <div class="hero-cta">
+          <button class="btn btn-gold">开始聆听</button>
+          <button class="btn btn-ghost">浏览歌单</button>
+        </div>
+        <div class="hero-stats">
+          <div><b class="num">1,240</b><span>张典藏专辑</span></div>
+          <div><b class="num">46</b><span>个策展歌单</span></div>
+          <div><b class="num">24/7</b><span>深夜电台</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="vinyl-disk"></div>
+        <div class="hero-cover-wrap">
+          <img id="heroCover" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=abstract%20album%20cover%20art%2C%20swirling%20amber%20gold%20and%20deep%20espresso%20brown%20ink%20gradients%2C%20art%20deco%20minimal%20composition%2C%20dramatic%20side%20lighting%2C%20premium%20boutique%20record%20label%20aesthetic%2C%20matte%20paper%20texture%2C%20elegant%2C%20no%20text&image_size=square_hd" alt="本周主打专辑">
+          <div class="cover-badge" id="heroBadge">本周主打 · 策展推荐</div>
+        </div>
+        <div class="float-chip chip-1">
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span id="heroNow">正在播放《蓝色时刻》</span>
+        </div>
+        <div class="float-chip chip-2">无损 FLAC · 24bit / 96kHz</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>氛围 <em>AMBIENT</em></span><span>爵士 <em>JAZZ</em></span><span>古典 <em>CLASSICAL</em></span><span>灵魂 <em>SOUL</em></span><span>电子 <em>ELECTRONIC</em></span><span>波萨诺瓦 <em>BOSSA NOVA</em></span><span>后摇 <em>POST-ROCK</em></span><span>新古典 <em>NEO-CLASSICAL</em></span><span>氛围 <em>AMBIENT</em></span><span>爵士 <em>JAZZ</em></span><span>古典 <em>CLASSICAL</em></span><span>灵魂 <em>SOUL</em></span><span>电子 <em>ELECTRONIC</em></span><span>波萨诺瓦 <em>BOSSA NOVA</em></span><span>后摇 <em>POST-ROCK</em></span><span>新古典 <em>NEO-CLASSICAL</em></span>
+    </div>
+  </div>
+
+  <!-- ================= FEATURED ALBUMS ================= -->
+  <section id="featured" class="featured">
+    <div class="section-head reveal">
+      <div>
+        <p class="sec-no">NO.01 — CURATED THIS WEEK</p>
+        <h2 class="sec-title">本周精选 <em>唱片</em></h2>
+        <p class="sec-sub">每一张都经过编辑部的深夜试听，值得整张专辑、从头到尾地聆听。</p>
+      </div>
+      <a class="sec-link" href="#tracks">查看全部
+        <svg width="18" height="10" viewBox="0 0 24 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h22m0 0-4-4m4 4-4 4"/></svg>
+      </a>
+    </div>
+        <div class="albums" id="albums"></div>
+  </section>
+
+  <!-- ================= TRENDING TRACKS ================= -->
+  <section id="tracks" class="tracks">
+    <div class="section-head reveal">
+      <div>
+        <p class="sec-no">NO.02 — ON REPEAT</p>
+        <h2 class="sec-title">正在流行 <em>之声</em></h2>
+        <p class="sec-sub">编辑部与听众共同选出的本周循环曲目，点击即听。</p>
+      </div>
+      <a class="sec-link" href="#playlists">全部榜单
+        <svg width="18" height="10" viewBox="0 0 24 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h22m0 0-4-4m4 4-4 4"/></svg>
+      </a>
+    </div>
+        <div class="track-list reveal" id="trackList"></div>
+  </section>
+
+  <!-- ================= GENRES ================= -->
+  <section id="genres" class="genres">
+    <div class="section-head reveal">
+      <div>
+        <p class="sec-no">NO.03 — THE SHELVES</p>
+        <h2 class="sec-title">按 <em>流派</em> 寻访</h2>
+        <p class="sec-sub">从爵士酒馆到雨夜山雾，四座货架，四种情绪经纬。</p>
+      </div>
+    </div>
+        <div class="genre-grid" id="genreGrid"></div>
+  </section>
+
+  <!-- ================= MOOD PLAYLISTS ================= -->
+  <section id="playlists" class="playlists">
+    <div class="section-head reveal">
+      <div>
+        <p class="sec-no">NO.04 — FOR THE MOMENT</p>
+        <h2 class="sec-title">情绪 <em>歌单</em></h2>
+        <p class="sec-sub">为每一种夜晚的质地而准备，横滑浏览。</p>
+      </div>
+      <a class="sec-link" href="#newsletter">订阅更新
+        <svg width="18" height="10" viewBox="0 0 24 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h22m0 0-4-4m4 4-4 4"/></svg>
+      </a>
+    </div>
+        <div class="pl-scroll" id="plScroll"></div>
+  </section>
+
+  <!-- ================= ARTISTS ================= -->
+  <section id="artists" class="artists">
+    <div class="section-head reveal">
+      <div>
+        <p class="sec-no">NO.05 — THE ARTISTS</p>
+        <h2 class="sec-title">驻店 <em>艺术家</em></h2>
+        <p class="sec-sub">四张面孔，四段正在发生的声音故事。</p>
+      </div>
+    </div>
+        <div class="artist-grid" id="artistGrid"></div>
+  </section>
+
+  <!-- ================= NEWSLETTER ================= -->
+  <section id="newsletter" class="newsletter reveal">
+    <p class="sec-no" style="justify-content:center">NO.06 — STAY TUNED</p>
+    <h2 class="nl-title">把耳朵，<em>借给我们</em>。</h2>
+    <p>每周一封深夜试听信 —— 新作首发、编辑部随笔与限量黑胶发售。</p>
+    <form class="nl-form" onsubmit="return false">
+      <input type="email" placeholder="你的邮箱地址" aria-label="邮箱">
+      <button type="submit">订阅</button>
+    </form>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <span class="mark">VESPERA</span>
+      <p>一间开在深夜的数字唱片行。我们相信声音是时间最好的容器，也相信值得被反复聆听的作品终会相遇。</p>
+    </div>
+    <div class="foot-col">
+      <h4>聆听</h4>
+      <a href="#featured">本周精选</a>
+      <a href="#tracks">正在流行</a>
+      <a href="#playlists">情绪歌单</a>
+      <a href="#genres">流派货架</a>
+    </div>
+    <div class="foot-col">
+      <h4>关于</h4>
+      <a href="#">编辑团队</a>
+      <a href="#">策展标准</a>
+      <a href="#">合作艺术家</a>
+      <a href="#">加盟开店</a>
+    </div>
+    <div class="foot-col">
+      <h4>支持</h4>
+      <a href="#">帮助中心</a>
+      <a href="#">音质说明</a>
+      <a href="#">隐私政策</a>
+      <a href="#">服务条款</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 VESPERA 晚调 · 深夜唱片行 · 保留所有权利</p>
+    <div class="foot-social">
+      <a href="#">微博</a><a href="#">小宇宙</a><a href="#">INSTAGRAM</a><a href="#">X</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= PLAYER ================= -->
+<div class="player" id="player">
+  <div class="p-left">
+    <img id="pCover" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smoky%20jazz%20club%20album%20cover%2C%20silhouette%20of%20saxophone%20player%20in%20warm%20amber%20spotlight%2C%20art%20deco%20geometric%20light%20rays%2C%20vintage%20noir%20atmosphere%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square" alt="封面">
+    <div class="p-meta">
+      <b id="pTitle">深夜爵士</b>
+      <i id="pArtist">陈默三重奏 · JAZZ</i>
+    </div>
+    <button class="heart" id="pHeart" aria-label="收藏">
+      <svg width="17" height="16" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7.5-4.6-10-9.3C.3 8 1.6 4.3 5 3.6c2-.4 4 .4 5 2 1-1.6 3-2.4 5-2 3.4.7 4.7 4.4 3 8.1C19.5 16.4 12 21 12 21z"/></svg>
+    </button>
+  </div>
+  <div class="p-center">
+    <div class="p-controls">
+      <button class="p-btn" id="pShuffle" aria-label="随机播放"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h4l10 12h4M17 6h4M3 18h4l2.2-2.6M14.8 8.6 17 6"/></svg></button>
+      <button class="p-btn" id="pPrev" aria-label="上一首"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9.5 12z"/></svg></button>
+      <button class="p-btn p-play" id="pPlay" aria-label="播放/暂停">
+        <svg width="18" height="20" viewBox="0 0 15 17" fill="currentColor"><path d="M0 0l15 8.5L0 17z"/></svg>
+      </button>
+      <button class="p-btn" id="pNext" aria-label="下一首"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l10.5-7z"/></svg></button>
+      <button class="p-btn" id="pRepeat" aria-label="循环播放"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+    </div>
+    <div class="p-progress">
+      <span class="t" id="pCur">0:00</span>
+      <div class="p-bar" id="pBar"><div class="fill" id="pFill"></div></div>
+      <span class="t" id="pDur">4:32</span>
+    </div>
+  </div>
+  <div class="p-right">
+    <span class="playing-ind">PLAYING</span>
+    <div class="p-vol">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <input type="range" id="pVol" min="0" max="100" value="60" aria-label="音量">
+    </div>
+    <div class="p-extra">
+      <button class="p-btn" aria-label="队列"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h10M4 18h7"/></svg></button>
+      <button class="p-btn" aria-label="歌词"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <span class="eq" id="pEq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/vespera.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $ = Vespera.$, $$ = Vespera.$$;
+
+  /* ================= 播放器核心 ================= */
+  var player = $("#player");
+  var pPlay = $("#pPlay"), pTitle = $("#pTitle"), pArtist = $("#pArtist"),
+      pCover = $("#pCover"), pCur = $("#pCur"), pDur = $("#pDur"),
+      pFill = $("#pFill"), pBar = $("#pBar"), pEq = $("#pEq"),
+      pVol = $("#pVol"), pHeart = $("#pHeart");
+  var state = { playing:false, cur:0, dur:272, vol:60 };
+  var iconPlay = '<svg width="18" height="20" viewBox="0 0 15 17" fill="currentColor"><path d="M0 0l15 8.5L0 17z"/></svg>';
+  var iconPause = '<svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4h5v16H5zM14 4h5v16h-5z"/></svg>';
+  var timer = null;
+  var queue = [], qIndex = 0;
+
+  function fmt(s){
+    s = Math.max(0, Math.round(s));
+    var m = Math.floor(s/60), r = s%60;
+    return m + ":" + (r<10?"0":"") + r;
+  }
+  function toSec(t){
+    var p = String(t).split(":");
+    return parseInt(p[0],10)*60 + parseInt(p[1],10);
+  }
+  function setPlaying(on){
+    state.playing = on;
+    player.classList.toggle("playing", on);
+    pEq.classList.toggle("on", on);
+    pPlay.innerHTML = on ? iconPause : iconPlay;
+    if(on){
+      if(!timer) timer = setInterval(tick, 1000);
+    } else {
+      if(timer){ clearInterval(timer); timer = null; }
+    }
+  }
+  function tick(){
+    if(!state.playing) return;
+    state.cur += 1;
+    if(state.cur >= state.dur){
+      state.cur = state.dur;
+      setPlaying(false);
+      nextTrack();
+      return;
+    }
+    paint();
+  }
+  function paint(){
+    pCur.textContent = fmt(state.cur);
+    pFill.style.width = (state.dur ? (state.cur/state.dur*100) : 0) + "%";
+  }
+  function playTrackObj(track){
+    if(!track) return;
+    pTitle.textContent = track.title;
+    pArtist.textContent = track.artist || "";
+    if(track.cover) pCover.src = track.cover;
+    state.dur = track.durSec || toSec(track.dur || "4:00");
+    pDur.textContent = fmt(state.dur);
+    state.cur = 0;
+    paint();
+    setPlaying(true);
+    $$(".track").forEach(function(t){
+      t.classList.toggle("playing", t.getAttribute("data-id") === track.id);
+    });
+  }
+  function playQueue(list, index){
+    queue = list || [];
+    qIndex = Math.max(0, index || 0);
+    playTrackObj(queue[qIndex]);
+  }
+  function nextTrack(){
+    if(!queue.length) return;
+    qIndex = (qIndex + 1) % queue.length;
+    playTrackObj(queue[qIndex]);
+  }
+  function prevTrack(){
+    if(!queue.length) return;
+    qIndex = (qIndex - 1 + queue.length) % queue.length;
+    playTrackObj(queue[qIndex]);
+  }
+
+  /* ================= 数据加载与渲染 ================= */
+  var music = { featured:{}, albums:[], tracks:[], playlists:[], genres:[], artists:[] };
+  function byId(list, id){ return (list||[]).filter(function(x){ return x.id === id; })[0]; }
+
+  function load(){
+    return fetch("data/music.json")
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        music = d;
+        renderHero();
+        renderAlbums();
+        renderTracks();
+        renderGenres();
+        renderPlaylists();
+        renderArtists();
+        bindClicks();
+        if(music.tracks.length){
+          playQueue(music.tracks.slice(), 0);
+          setPlaying(false);
+        }
+      })
+      .catch(function(){ console.error("data/music.json 加载失败"); });
+  }
+
+  function renderHero(){
+    var f = music.featured || {};
+    var album = byId(music.albums, f.albumId) || (music.albums||[])[0];
+    if(!album) return;
+    var img = $("#heroCover");
+    if(img && album.cover) img.src = album.cover;
+    var badge = $("#heroBadge");
+    if(badge) badge.textContent = "本周主打 · " + album.title;
+    var now = $("#heroNow");
+    if(now) now.textContent = "正在播放《" + album.title + "》";
+  }
+  function albumCard(a, i){
+    return '<button class="album-card reveal" style="transition-delay:'+(0.05+i*0.07).toFixed(2)+'s" data-kind="album" data-id="'+a.id+'">'+
+      '<figure><img src="'+a.cover+'" alt="'+a.title+'" loading="lazy">'+
+      '<span class="hover-play"><svg width="15" height="17" viewBox="0 0 15 17" fill="currentColor"><path d="M0 0l15 8.5L0 17z"/></svg></span></figure>'+
+      '<div class="album-meta"><div><h3>'+a.title+'</h3><span class="en">'+a.en+'</span>'+
+      '<p>'+a.artist+' · '+a.genre+' · '+a.year+'</p></div><span class="price">¥ '+a.price+'</span></div>'+
+    '</button>';
+  }
+  function renderAlbums(){
+    var el = $("#albums");
+    if(el) el.innerHTML = (music.albums||[]).map(albumCard).join("");
+  }
+  function trackRow(t, i){
+    return '<button class="track" data-kind="track" data-id="'+t.id+'" data-title="'+t.title+'" data-artist="'+t.artist+'" data-cover="'+t.cover+'" data-dur="'+t.dur+'">'+
+      '<span class="t-idx">'+String(i+1).padStart(2,"0")+'</span>'+
+      '<span class="t-art"><img src="'+t.cover+'" alt=""><span class="t-meta"><b>'+t.title+'</b><i>'+t.artist+' · '+(t.genre||"").toUpperCase()+'</i></span></span>'+
+      '<span class="t-mood">'+t.mood+'</span><span class="t-dur">'+t.dur+'</span>'+
+      '<span class="t-play"><svg width="12" height="14" viewBox="0 0 15 17" fill="currentColor"><path d="M0 0l15 8.5L0 17z"/></svg></span>'+
+    '</button>';
+  }
+  function renderTracks(){
+    var el = $("#trackList");
+    if(el) el.innerHTML = (music.tracks||[]).map(trackRow).join("");
+  }
+  function genreCard(g, i){
+    return '<div class="genre-card reveal" style="transition-delay:'+(0.05+i*0.07).toFixed(2)+'s">'+
+      '<img src="'+g.cover+'" alt="'+g.name+'" loading="lazy">'+
+      '<span class="g-count">'+g.count+'</span>'+
+      '<div class="g-body"><span class="g-en">'+g.en+'</span><h3>'+g.name+'</h3><p>'+g.desc+'</p></div>'+
+      '<span class="g-line"></span></div>';
+  }
+  function renderGenres(){
+    var el = $("#genreGrid");
+    if(el) el.innerHTML = (music.genres||[]).map(genreCard).join("");
+  }
+  function playlistCard(p, i){
+    return '<button class="pl-card reveal" style="transition-delay:'+(i*0.08).toFixed(2)+'s" data-kind="playlist" data-id="'+p.id+'">'+
+      '<figure><img src="'+p.cover+'" alt="'+p.title+'" loading="lazy">'+
+      '<span class="pl-play"><svg width="14" height="16" viewBox="0 0 15 17" fill="currentColor"><path d="M0 0l15 8.5L0 17z"/></svg></span>'+
+      '<div class="pl-info"><h3>'+p.title+'</h3><p>'+p.en+' · '+p.count+'</p></div></figure>'+
+    '</button>';
+  }
+  function renderPlaylists(){
+    var el = $("#plScroll");
+    if(el) el.innerHTML = (music.playlists||[]).map(playlistCard).join("");
+  }
+  function artistCard(a, i){
+    return '<button class="artist-card reveal" style="transition-delay:'+(0.05+i*0.07).toFixed(2)+'s">'+
+      '<figure><img src="'+a.cover+'" alt="'+a.name+'" loading="lazy"></figure>'+
+      '<span class="a-en">'+a.en+'</span><h3>'+a.name+'</h3><p>'+a.role+' · '+a.subs+'</p>'+
+    '</button>';
+  }
+  function renderArtists(){
+    var el = $("#artistGrid");
+    if(el) el.innerHTML = (music.artists||[]).map(artistCard).join("");
+  }
+
+  function bindClicks(){
+    $$(".track").forEach(function(el){
+      el.addEventListener("click", function(){
+        var t = byId(music.tracks, el.getAttribute("data-id"));
+        if(t) playQueue(music.tracks.slice(), music.tracks.indexOf(t));
+      });
+    });
+    $$(".album-card").forEach(function(el){
+      el.addEventListener("click", function(){
+        var a = byId(music.albums, el.getAttribute("data-id"));
+        if(!a) return;
+        var list = (a.trackIds||[]).map(function(id){ return byId(music.tracks, id); }).filter(Boolean);
+        if(!list.length) list = [{ title:a.title, artist:a.artist, cover:a.cover, dur:"4:00" }];
+        playQueue(list, 0);
+      });
+    });
+    $$(".pl-card").forEach(function(el){
+      el.addEventListener("click", function(){
+        var p = byId(music.playlists, el.getAttribute("data-id"));
+        if(!p) return;
+        var list = (p.trackIds||[]).map(function(id){ return byId(music.tracks, id); }).filter(Boolean);
+        if(!list.length) list = [{ title:p.title, artist:p.en, cover:p.cover, dur:"4:00" }];
+        playQueue(list, 0);
+      });
+    });
+  }
+
+  /* ================= 播放器控件 ================= */
+  pPlay.addEventListener("click", function(){
+    if(state.cur >= state.dur){ state.cur = 0; paint(); }
+    setPlaying(!state.playing);
+  });
+  $("#pNext").addEventListener("click", nextTrack);
+  $("#pPrev").addEventListener("click", prevTrack);
+  pBar.addEventListener("click", function(e){
+    var r = pBar.getBoundingClientRect();
+    var ratio = Math.min(1, Math.max(0, (e.clientX - r.left)/r.width));
+    state.cur = Math.round(ratio * state.dur);
+    paint();
+    if(state.cur >= state.dur && state.playing){ setPlaying(false); }
+  });
+  pVol.addEventListener("input", function(){
+    state.vol = pVol.value;
+    pVol.style.setProperty("--vol", pVol.value + "%");
+  });
+  pVol.style.setProperty("--vol", pVol.value + "%");
+  pHeart.addEventListener("click", function(){ pHeart.classList.toggle("on"); });
+  $("#pShuffle").addEventListener("click", function(){ this.classList.toggle("active"); });
+  $("#pRepeat").addEventListener("click", function(){ this.classList.toggle("active"); });
+  document.addEventListener("keydown", function(e){
+    if(e.code === "Space" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+      e.preventDefault();
+      pPlay.click();
+    }
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
