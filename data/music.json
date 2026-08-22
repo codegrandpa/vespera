@@ -177,6 +177,8 @@
       "id": "复古",
       "title": "够爱",
       "artist": "汪东城",
+      "genre": "复古",
+      "mood": "复古",
       "src": "audio/track.mp3"
     }
   ],
