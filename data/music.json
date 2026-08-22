@@ -172,6 +172,12 @@
       "albumId": "velvet-and-gold",
       "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=neo%20soul%20album%20cover%2C%20textured%20gold%20leaf%20and%20deep%20oxblood%20red%20velvet%20folds%2C%20moody%20cinematic%20lighting%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square",
       "src": ""
+    },
+    {
+      "id": "复古",
+      "title": "够爱",
+      "artist": "汪东城",
+      "src": "audio/track.mp3"
     }
   ],
   "playlists": [
