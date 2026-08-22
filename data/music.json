@@ -82,6 +82,19 @@
       "trackIds": [
         "t6"
       ]
+    },
+    {
+      "id": "复古",
+      "title": "复古",
+      "en": "Retro",
+      "artist": "汪东城",
+      "genre": "复古",
+      "year": "2009",
+      "price": 30,
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=retro%20mandopop%20album%20cover%2C%20teal%20and%20amber%20neon%20glow%2C%20vintage%20vinyl%20store%20aesthetic%2C%20premium%20artwork%2C%20no%20text&image_size=square_hd",
+      "trackIds": [
+        "复古"
+      ]
     }
   ],
   "tracks": [
@@ -179,7 +192,10 @@
       "artist": "汪东城",
       "genre": "复古",
       "mood": "复古",
-      "src": "audio/track.mp3"
+      "src": "audio/复古.mp3",
+      "dur": "4:51",
+      "albumId": "复古",
+      "cover": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=retro%20mandopop%20album%20cover%2C%20vintage%20film%20photography%2C%20warm%20amber%20and%20sepia%20tones%2C%201980s%20taiwanese%20rock%20nostalgia%2C%20premium%20vinyl%20artwork%2C%20no%20text&image_size=square_hd"
     }
   ],
   "playlists": [
