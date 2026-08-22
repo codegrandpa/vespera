@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.loli.net/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vespera.css?v=3">
+<link rel="stylesheet" href="assets/vespera.css?v=4">
 </head>
 <body class="no-player">
 <script>
@@ -149,6 +149,8 @@
   var musicDb = { featured:{}, albums:[], tracks:[], playlists:[], genres:[], artists:[] };
   var activeKey = "posts";
   var editingId = null;
+  var pendingAudio = {};
+  var MAX_AUDIO_REPO_BYTES = 5 * 1024 * 1024;
 
   /* ================= 实体 Schema ================= */
   var SCHEMAS = {
@@ -197,10 +199,11 @@
         { name:"mood", label:"情绪标签", type:"text" },
         { name:"dur", label:"时长（如 4:32）", type:"text" },
         { name:"albumId", label:"所属专辑 ID", type:"text" },
+        { name:"src", label:"音频文件（上传或粘贴链接）", type:"audio" },
         { name:"cover", label:"封面图 URL", type:"text" }
       ],
       listTitle: function(t){ return t.title; },
-      listSub: function(t){ return t.artist + " · " + t.dur; },
+      listSub: function(t){ return t.artist + " · " + t.dur + (t.src ? "" : " · 无音源"); },
       viewUrl: function(t){ return "index.html"; }
     },
     playlists: {
@@ -324,6 +327,75 @@
       return r.json();
     });
   }
+  /* 二进制文件（音频）提交：base64 直接作为 content，不做文本二次编码 */
+  function ghPutBlob(path, base64, sha, message){
+    return fetch("https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + path, {
+      method: "PUT",
+      headers: ghHeaders(),
+      body: JSON.stringify({ message: message, content: base64, sha: sha, branch: cfg.branch })
+    });
+  }
+  function ghDelete(path, sha, message){
+    return fetch("https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + path, {
+      method: "DELETE",
+      headers: ghHeaders(),
+      body: JSON.stringify({ message: message, sha: sha, branch: cfg.branch })
+    });
+  }
+  function fileToBase64(file){
+    return new Promise(function(resolve, reject){
+      var r = new FileReader();
+      r.onload = function(){ resolve(String(r.result).split(",")[1] || r.result); };
+      r.onerror = function(){ reject(r.error); };
+      r.readAsDataURL(file);
+    });
+  }
+  function uploadAudioToRepo(path, file, message){
+    return ghGet(path).then(function(r){
+      if(r.status === 404) return { sha: null };
+      if(!r.ok) throw new Error("读取仓库音频失败 (" + r.status + ")");
+      return r.json();
+    }).then(function(meta){
+      return fileToBase64(file).then(function(b64){
+        return ghPutBlob(path, b64, meta.sha, message);
+      });
+    }).then(function(r){
+      if(!r.ok) return r.json().then(function(e){ throw new Error(e.message || "音频上传失败"); });
+      return r.json();
+    });
+  }
+
+  /* ================= 本机音频库（IndexedDB） ================= */
+  var AUDIO_DB = "vespera-audio", AUDIO_STORE = "tracks";
+  var audioStore = {
+    open: function(){
+      return new Promise(function(resolve, reject){
+        var req = indexedDB.open(AUDIO_DB, 1);
+        req.onupgradeneeded = function(){ req.result.createObjectStore(AUDIO_STORE); };
+        req.onsuccess = function(){ resolve(req.result); };
+        req.onerror = function(){ reject(req.error); };
+      });
+    },
+    save: function(id, blob){
+      return audioStore.open().then(function(db){
+        return new Promise(function(resolve, reject){
+          var tx = db.transaction(AUDIO_STORE, "readwrite");
+          tx.objectStore(AUDIO_STORE).put(blob, id);
+          tx.oncomplete = function(){ resolve(); };
+          tx.onerror = function(){ reject(tx.error); };
+        });
+      });
+    },
+    remove: function(id){
+      return audioStore.open().then(function(db){
+        return new Promise(function(resolve){
+          var tx = db.transaction(AUDIO_STORE, "readwrite");
+          tx.objectStore(AUDIO_STORE).delete(id);
+          tx.oncomplete = function(){ resolve(); };
+        });
+      });
+    }
+  };
 
   /* ================= 标签页 ================= */
   function renderTabs(){
@@ -400,9 +472,27 @@
     wrap.innerHTML = "";
     schema.fields.forEach(function(f){
       var row = document.createElement("div");
-      row.className = "form-row" + (f.type === "textarea" ? " one" : "");
+      row.className = "form-row" + (f.type === "textarea" || f.type === "audio" ? " one" : "");
       var val = item[f.name];
       if(f.type === "tags") val = (val||[]).join(", ");
+      if(f.type === "audio"){
+        var prevSrc = val || "";
+        row.innerHTML =
+          '<div class="field">'+
+            '<label>' + f.label + (f.required ? " *" : "") + '</label>'+
+            '<input type="file" id="f_audio_file" accept="audio/*,.mp3,.flac,.wav,.m4a,.ogg,.aac">'+
+            '<input type="text" id="f_' + f.name + '" placeholder="https://... 或 audio/曲目.mp3" value="' + escAttr(val) + '" style="margin-top:10px">'+
+            '<audio id="f_audio_preview" controls preload="metadata" style="display:none;width:100%;margin-top:12px"></audio>'+
+            '<p class="hint" style="margin-top:10px">'+
+              '选择本地文件：保存时自动存入本机浏览器（IndexedDB）立即生效，并尝试同步到仓库 <b>audio/</b> 目录（≤ 5MB），同步成功后全站可播。'+
+              '粘贴外部链接：保存后全站可见。'+
+              (prevSrc ? '<br>当前链接：<b style="color:var(--gold-2)">' + escAttr(prevSrc) + '</b>' : '')+
+            '</p>'+
+          '</div>';
+        wrap.appendChild(row);
+        bindAudioField(item, prevSrc);
+        return;
+      }
       var input = f.type === "textarea"
         ? '<textarea id="f_' + f.name + '" placeholder=""></textarea>'
         : '<input id="f_' + f.name + '" type="' + (f.type === "number" ? "number" : "text") + '" value="' + escAttr(val) + '">';
@@ -425,7 +515,34 @@
   function escAttr(v){
     return String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
   }
+  function bindAudioField(item, prevSrc){
+    var fileInput = document.getElementById("f_audio_file");
+    var srcInput = document.getElementById("f_src");
+    var preview = document.getElementById("f_audio_preview");
+    pendingAudio[item.id] = null;
+    fileInput.addEventListener("change", function(){
+      var f = fileInput.files && fileInput.files[0];
+      if(!f){ pendingAudio[item.id] = null; preview.style.display = "none"; return; }
+      pendingAudio[item.id] = f;
+      try{ URL.revokeObjectURL(preview.src); }catch(e){}
+      preview.src = URL.createObjectURL(f);
+      preview.style.display = "block";
+      if(!srcInput.value || srcInput.dataset.auto === "1"){
+        srcInput.dataset.auto = "1";
+        var ext = (f.name.split(".").pop() || "mp3").toLowerCase();
+        srcInput.value = "audio/" + (item.id !== "new" ? item.id : "track") + "." + ext;
+      }
+    });
+    srcInput.addEventListener("input", function(){ srcInput.dataset.auto = "0"; });
+    srcInput.dataset.auto = prevSrc ? "0" : "1";
+    if(prevSrc && /^https?:/i.test(prevSrc)){
+      preview.src = prevSrc;
+      preview.style.display = "block";
+    }
+  }
   function closeEditor(){
+    var pv = document.getElementById("f_audio_preview");
+    if(pv){ try{ URL.revokeObjectURL(pv.src); }catch(e){} }
     $("#editorCard").style.display = "none";
     editingId = null;
   }
@@ -459,6 +576,23 @@
     }
     return true;
   }
+  function commitAudioIfPending(item){
+    var schema = SCHEMAS[activeKey];
+    if(schema.key !== "tracks") return Promise.resolve({});
+    var file = pendingAudio[item.id];
+    if(!file) return Promise.resolve({});
+    var path = (item.src && item.src.indexOf("audio/") === 0)
+      ? item.src
+      : "audio/" + item.id + "." + (String(file.name).split(".").pop() || "mp3").toLowerCase();
+    return audioStore.save(item.id, file).then(function(){
+      if(file.size > MAX_AUDIO_REPO_BYTES){
+        return { local: true, reason: "文件 " + (file.size/1024/1024).toFixed(1) + "MB 超过 5MB，GitHub API 无法上传，音频仅保存在本机浏览器" };
+      }
+      return uploadAudioToRepo(path, file, "上传音频：" + (item.title || item.id))
+        .then(function(){ return { repo: path }; })
+        .catch(function(e){ return { local: true, reason: "仓库同步失败（" + e.message + "），音频仅保存在本机浏览器" }; });
+    }).catch(function(e){ return { local: true, reason: "本机保存失败：" + e.message }; });
+  }
   $("#btnSave").addEventListener("click", function(){
     var schema = SCHEMAS[activeKey];
     var item;
@@ -466,17 +600,23 @@
     if(!requireCfg()) return;
     var items = getItems(schema);
     var existed = items.some(function(x){ return x.id === item.id; });
-    setItems(schema, existed
-      ? items.map(function(x){ return x.id === item.id ? item : x; })
-      : items.concat([item]));
-    status("edStatus", "正在提交到 GitHub…");
-    commitFile(schema, (existed ? "更新" : "新增") + schema.label + "：" + (item.title || item.name || item.id))
-      .then(function(){
-        status("edStatus", "已提交到 " + cfg.owner + "/" + cfg.repo + "，GitHub Pages 约 1 分钟后更新。", "ok");
-        closeEditor();
-        renderList();
-      })
-      .catch(function(e){ status("edStatus", "提交失败：" + e.message, "err"); });
+    status("edStatus", "正在保存音频并提交到 GitHub…");
+    commitAudioIfPending(item).then(function(audioInfo){
+      setItems(schema, existed
+        ? items.map(function(x){ return x.id === item.id ? item : x; })
+        : items.concat([item]));
+      return commitFile(schema, (existed ? "更新" : "新增") + schema.label + "：" + (item.title || item.name || item.id))
+        .then(function(){
+          var msg = "已提交到 " + cfg.owner + "/" + cfg.repo + "，GitHub Pages 约 1 分钟后更新。";
+          if(audioInfo && audioInfo.repo) msg = "音频已上传到仓库 " + audioInfo.repo + "；" + msg;
+          else if(audioInfo && audioInfo.local) msg = audioInfo.reason + "；" + msg;
+          status("edStatus", msg, audioInfo && audioInfo.local ? "err" : "ok");
+          closeEditor();
+          renderList();
+        });
+    }).catch(function(e){
+      status("edStatus", "保存失败：" + e.message, "err");
+    });
   });
   $("#btnFeatured").addEventListener("click", function(){
     if(!requireCfg()) return;
@@ -491,18 +631,39 @@
   });
   $("#btnDelete").addEventListener("click", function(){
     if(!editingId) return;
-    if(!window.confirm("确定删除这条记录？此操作将提交到 GitHub。")) return;
+    if(!window.confirm("确定删除这条记录？此操作将提交到 GitHub。" + (activeKey === "tracks" ? "若已上传仓库音频文件也会一并删除。" : ""))) return;
     if(!requireCfg()) return;
     var schema = SCHEMAS[activeKey];
+    var old = getItems(schema).filter(function(x){ return x.id === editingId; })[0] || {};
     setItems(schema, getItems(schema).filter(function(x){ return x.id !== editingId; }));
     status("edStatus", "正在提交删除…");
-    commitFile(schema, "删除" + schema.label + "：" + editingId)
-      .then(function(){
-        status("edStatus", "已删除并提交，Pages 约 1 分钟后更新。", "ok");
-        closeEditor();
-        renderList();
-      })
-      .catch(function(e){ status("edStatus", "提交失败：" + e.message, "err"); });
+    var cleanup = Promise.resolve();
+    if(activeKey === "tracks"){
+      audioStore.remove(editingId).catch(function(){});
+      if(old.src && old.src.indexOf("audio/") === 0){
+        cleanup = ghGet(old.src).then(function(r){
+          if(r.status === 404) return;
+          if(!r.ok) return;
+          return r.json().then(function(meta){
+            if(!meta.sha) return;
+            return ghDelete(old.src, meta.sha, "删除音频：" + editingId).then(function(dr){
+              if(!dr.ok) throw new Error("删除音频失败 (" + dr.status + ")");
+            });
+          });
+        }).catch(function(e){
+          status("edStatus", "音频文件删除失败：" + e.message + "（记录仍会删除）", "err");
+        });
+      }
+    }
+    cleanup.then(function(){
+      return commitFile(schema, "删除" + schema.label + "：" + editingId);
+    }).then(function(){
+      status("edStatus", "已删除并提交，Pages 约 1 分钟后更新。", "ok");
+      closeEditor();
+      renderList();
+    }).catch(function(e){
+      status("edStatus", "提交失败：" + e.message, "err");
+    });
   });
   $("#btnNew").addEventListener("click", function(){
     openEditor({ id:"new" });

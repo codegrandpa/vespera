@@ -363,6 +363,11 @@ section{position:relative;padding:120px 5vw}
 .track.playing .t-idx,.track.playing .t-meta b{color:var(--gold)}
 .track.playing .t-dur{color:var(--gold)}
 .track.playing .t-play{background:var(--gold);color:#22170c;border-color:var(--gold)}
+.track.no-src{opacity:.62}
+.track.no-src .t-dur{color:var(--muted)}
+.track.no-src:hover{padding-left:18px;background:none}
+.track.no-src:hover::before{transform:scaleY(0)}
+.track.no-src .t-play{opacity:.45}
 
 /* ---------- genres ---------- */
 .genre-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
